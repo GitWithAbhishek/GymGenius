@@ -1,0 +1,10 @@
+{
+  "placeholderImages": [
+    {
+      "id": "hero-image",
+      "description": "A dynamic shot of a person engaged in a high-intensity workout.",
+      "imageUrl": "https://images.unsplash.com/photo-1618688862225-ac941a9da58f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxmaXRuZXNzJTIwd29ya291dHxlbnwwfHx8fDE3NjE5NDU2Mjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "fitness workout"
+    }
+  ]
+}
