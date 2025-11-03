@@ -36,6 +36,8 @@ export function MotivationCarousel({ tips }: MotivationCarouselProps) {
 
   const handlePlayAudio = async (tip: MotivationalTipsOutput['tips'][0], index: number) => {
     const tipId = `tip-${index}`;
+
+    // If same audio is playing, stop it
     if (activeAudio === tipId) {
       audioRef.current?.pause();
       setActiveAudio(null);
@@ -45,10 +47,11 @@ export function MotivationCarousel({ tips }: MotivationCarouselProps) {
     setLoadingAudio(tipId);
     setActiveAudio(null);
 
-    const textToRead = `"${tip.tip}" - ${tip.advice}`;
+    const textToRead = `${tip.tip} - ${tip.advice}`;
     const result = await generateAudio(textToRead);
 
     setLoadingAudio(null);
+
     if ('error' in result) {
       toast({
         variant: 'destructive',
@@ -83,27 +86,38 @@ export function MotivationCarousel({ tips }: MotivationCarouselProps) {
               <Card className="bg-card/50">
                 <CardContent className="flex flex-col items-center justify-center p-6 gap-4 text-center relative">
                   <Lightbulb className="w-8 h-8 text-primary" />
-                  <p className="text-lg font-semibold italic">"{tip.tip}"</p>
+
+                  {/* Tip text with escaped quotes */}
+                  <p className="text-lg font-semibold italic">
+                    &quot;{tip.tip}&quot;
+                  </p>
+
                   <p className="text-sm text-muted-foreground">{tip.advice}</p>
-                   <Button
-                      variant="ghost"
-                      size="icon"
-                      className="absolute top-2 right-2 h-8 w-8"
-                      onClick={() => handlePlayAudio(tip, index)}
-                      disabled={loadingAudio === `tip-${index}`}
-                    >
-                      {loadingAudio === `tip-${index}` ? (
-                        <LoaderCircle className="animate-spin" />
-                      ) : (
-                        <Volume2 className={activeAudio === `tip-${index}` ? 'text-primary' : ''} />
-                      )}
-                    </Button>
+
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="absolute top-2 right-2 h-8 w-8"
+                    onClick={() => handlePlayAudio(tip, index)}
+                    disabled={loadingAudio === `tip-${index}`}
+                  >
+                    {loadingAudio === `tip-${index}` ? (
+                      <LoaderCircle className="animate-spin" />
+                    ) : (
+                      <Volume2
+                        className={
+                          activeAudio === `tip-${index}` ? 'text-primary' : ''
+                        }
+                      />
+                    )}
+                  </Button>
                 </CardContent>
               </Card>
             </div>
           </CarouselItem>
         ))}
       </CarouselContent>
+
       <CarouselPrevious />
       <CarouselNext />
     </Carousel>

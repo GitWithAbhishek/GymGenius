@@ -56,7 +56,8 @@ if (media?.url) {
       prompt: simplePrompt,
     });
     
-    if (!media.url) {
+if (!media?.url) {
+
       throw new Error('Failed to generate image even with a simpler prompt.');
     }
 

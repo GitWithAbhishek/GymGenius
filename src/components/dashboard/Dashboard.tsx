@@ -49,17 +49,20 @@ export function Dashboard({
       const contentWidth = pageWidth - margin * 2;
       let y = margin;
 
-      const addText = (text: string, size: number, isBold: boolean = false) => {
-        if (y > pageHeight - margin) {
-          pdf.addPage();
-          y = margin;
-        }
-        pdf.setFontSize(size);
-        pdf.setFont(undefined, isBold ? 'bold' : 'normal');
-        const lines = pdf.splitTextToSize(text, contentWidth);
-        pdf.text(lines, margin, y);
-        y += (lines.length * size) / 2.8; // Approximate line height
-      };
+    const addText = (text: string, size: number, isBold: boolean = false) => {
+  if (y > pageHeight - margin) {
+    pdf.addPage();
+    y = margin;
+  }
+
+  pdf.setFontSize(size);
+  pdf.setFont("helvetica", isBold ? "bold" : "normal"); // ✅ Fixed here
+
+  const lines = pdf.splitTextToSize(text, contentWidth);
+  pdf.text(lines, margin, y);
+  y += (lines.length * size) / 2.8; // Approximate line height
+};
+
 
       // Title
       addText(`Your GymGenius Plan for ${userData.name}`, 18, true);
