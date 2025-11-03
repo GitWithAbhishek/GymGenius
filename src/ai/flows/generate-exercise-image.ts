@@ -41,9 +41,10 @@ const generateExerciseImageFlow = ai.defineFlow(
         model: 'googleai/imagen-4.0-fast-generate-001',
         prompt: specificPrompt,
       });
-      if (media.url) {
-        return {imageUrl: media.url};
-      }
+if (media?.url) {
+  return { imageUrl: media.url };
+}
+
     } catch (e) {
       console.warn(`Initial image generation failed for "${input.exerciseName}", trying a simpler prompt.`);
     }

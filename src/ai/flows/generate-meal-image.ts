@@ -41,9 +41,10 @@ const generateMealImageFlow = ai.defineFlow(
         model: 'googleai/imagen-4.0-fast-generate-001',
         prompt: specificPrompt,
       });
-      if (media.url) {
-        return {imageUrl: media.url};
-      }
+if (media?.url) {
+  return { imageUrl: media.url };
+}
+
     } catch (e) {
        console.warn(`Initial image generation failed for "${input.mealName}", trying a simpler prompt.`);
     }
